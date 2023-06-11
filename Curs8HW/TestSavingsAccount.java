@@ -27,7 +27,7 @@ class Account {
     public double balance;
     public Customer accountOwner;
 
-    public void withdrawMoney(int amount) {
+    public void withdrawMoney(double amount) {
         try {
             throw new InsuficientFundsException();
         } catch (InsuficientFundsException ex) {
@@ -54,21 +54,24 @@ class SavingsAccount extends Account {
     }
 
     @Override
-    public void withdrawMoney(int amount) {
+    public void withdrawMoney(double amount) {
         try {
-            if (amount > this.balance) {
+            if (amount < 0) {
+                System.out.println("Cannot withdraw a negative amount!");
+            } else if (amount > this.balance) {
                 throw new InsuficientFundsException();
             } else {
                 this.balance -= amount;
                 System.out.println("Please pick up your money!");
                 System.out.println("New balance: " + this.balance);
-                System.out.println("Thank you for using our ATM");
             }
         } catch (InsuficientFundsException eFundsException) {
             System.out.println("The amount you entered is greater than the available balance: " + balance);
-            System.out.println("Thank you for using our ATM");
+
             System.out.println(eFundsException);
             ;
+        } finally {
+            System.out.println("Thank you for using our ATM");
         }
     }
 
@@ -86,7 +89,7 @@ class TestSavingsAccount {
         // augustinSavingsAccount.getAccountNumber());
 
         System.out.print("Please enter the amount to withdraw: ");
-        augustinSavingsAccount.withdrawMoney(input.nextInt());
+        augustinSavingsAccount.withdrawMoney(input.nextDouble());
 
         input.close();
     }
