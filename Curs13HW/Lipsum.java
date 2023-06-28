@@ -31,10 +31,6 @@ public class Lipsum {
             System.out.println(text.substring(1, indexOfDot));
             text = text.substring(indexOfDot, text.length());
         }
-        String[] split = text.split(".");
-        for (String i : split) {
-            System.out.println(i);
-        }
     }
 
     // 3
